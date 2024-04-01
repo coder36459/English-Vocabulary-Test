@@ -1,7 +1,80 @@
 "use strict";
-document.body.innerHTML = "<div id=\"root\"></div>";
+const terms = [];
 
-"use strict";
+let dTerms = [];
+const l = "abcdefghijklmnopqrstuvwxyz";
+let a = [],j = 0;
+a = l.split("");
+
+while (j < terms.length) {
+  function decrypter(t, c) {
+    let text = t,cipher = c,decrypt = "",d,i;
+    d = text.split("");
+    i = 0;
+    while (i < d.length) {
+      if (d[i] == " " || d[i] == "," || d[i] == "(" || d[i] == ")") {
+        decrypt += d[i];
+      } else
+      {
+        if (a.indexOf(d[i]) < cipher) {
+          decrypt += a[a.length + a.indexOf(d[i]) - cipher];
+        } else
+        {
+          decrypt += a[a.indexOf(d[i]) - cipher];
+        }
+      }
+      i += 1;
+    }
+    dTerms.push(decrypt);
+  }
+  decrypter(terms[j], 5);
+  j += 1;
+}
+
+let rand = [];
+function randomTerms(arr, qua) {
+  let arrayTerms = arr,quantityDef = qua,i = 0,j = 0,k = 0,def = [],term = [],r;
+
+  while (i < arrayTerms.length) {
+    if (i % 2) {
+      def.push(arrayTerms[i]);
+    } else
+    {
+      term.push(arrayTerms[i]);
+    }
+    i += 1;
+  }
+
+  while (j < 10e3) {
+    r = Math.floor(Math.random() * def.length);
+    if (rand.includes(def[r]) == false) {
+      if (rand.length < quantityDef) {
+        rand.push(def[r]);
+        rand.push([term[r]]);
+      }
+    }
+    j += 1;
+  }
+
+  while (k < rand.length) {
+    if (k % 2) {
+      let u = 0;
+      while (u < 10e3) {
+        r = Math.floor(Math.random() * term.length);
+        if (rand[k].includes(term[r]) == false) {
+          if (rand[k].length < 4) {
+            rand[k].push(term[r]);
+          }
+        }
+        u += 1;
+      }
+      rand[k].sort();
+    }
+    k += 1;
+  }
+}
+randomTerms(dTerms, 39);
+
 const Test = () => {
   const [cat, setCat] = React.useState("Random");
   const [count, setCount] = React.useState(0);
@@ -9,27 +82,104 @@ const Test = () => {
   const [percent, setPercent] = React.useState(0);
   const [timerMinutes, setTimerMinutes] = React.useState(0);
   const [timerSeconds, setTimerSeconds] = React.useState(0);
+  const [cRand, setCRand] = React.useState(0);
+  const [cTRand, setCTRand] = React.useState(1);
+  const [score, setScore] = React.useState(0);
 
-  const Title = () => {return (
+  const Title = () => {
+    return (
       React.createElement("h1", { class: "p-3 mb-3 mt-2 text-uppercase", id: "title" }, "english vocabulary test"));
+
   };
 
-  const CatBtn = () => {return (
+  const CatBtn = () => {
+    return (
       React.createElement("nav", null, 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize me-2", id: "first-nav", onClick: rel }, "relationships"), 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize me-2", id: "second-nav", onClick: cin }, "cinema"), 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize", id: "third-nav", onClick: ran }, "random")));
 
+
   };
 
-  const Footer = () => {return (
+  const Footer = () => {
+    return (
       React.createElement("div", { class: "m-3 text-center", id: "footer" }, "Made by ", React.createElement("a", { href: "https://www.linkedin.com/in/maciej-browarski", target: "_blank" }, "Maciej Browarski")));
+
   };
 
-  const countDef = () => {
+  const defT = rand[cRand];
+  const termOne = rand[cTRand][0];
+  const termTwo = rand[cTRand][1];
+  const termThree = rand[cTRand][2];
+  const termFour = rand[cTRand][3];
+
+  const countDefOne = () => {
     if (count < 20) {
       setCount(count + 1);
-      setPercent((count + 1) * 5);
+      if (cTRand < 39) {
+        setCRand(cRand + 2);
+        setCTRand(cTRand + 2);
+      }
+      if (dTerms.indexOf(termOne) == dTerms.indexOf(defT) - 1) {
+        setPercent(0);
+        setScore(score + 1);
+        setPercent(Math.floor((score + 1) / 20 * 100));
+      }
+      if (def < 20) {
+        setDef(def + 1);
+      }
+    }
+  };
+
+  const countDefTwo = () => {
+    if (count < 20) {
+      setCount(count + 1);
+      if (cTRand < 39) {
+        setCRand(cRand + 2);
+        setCTRand(cTRand + 2);
+      }
+      if (dTerms.indexOf(termTwo) == dTerms.indexOf(defT) - 1) {
+        setPercent(0);
+        setScore(score + 1);
+        setPercent(Math.floor((score + 1) / 20 * 100));
+      }
+      if (def < 20) {
+        setDef(def + 1);
+      }
+    }
+  };
+
+  const countDefThree = () => {
+    if (count < 20) {
+      setCount(count + 1);
+      if (cTRand < 39) {
+        setCRand(cRand + 2);
+        setCTRand(cTRand + 2);
+      }
+      if (dTerms.indexOf(termThree) == dTerms.indexOf(defT) - 1) {
+        setPercent(0);
+        setScore(score + 1);
+        setPercent(Math.floor((score + 1) / 20 * 100));
+      }
+      if (def < 20) {
+        setDef(def + 1);
+      }
+    }
+  };
+
+  const countDefFour = () => {
+    if (count < 20) {
+      setCount(count + 1);
+      if (cTRand < 39) {
+        setCRand(cRand + 2);
+        setCTRand(cTRand + 2);
+      }
+      if (dTerms.indexOf(termFour) == dTerms.indexOf(defT) - 1) {
+        setPercent(0);
+        setScore(score + 1);
+        setPercent(Math.floor((score + 1) / 20 * 100));
+      }
       if (def < 20) {
         setDef(def + 1);
       }
@@ -42,6 +192,9 @@ const Test = () => {
     setPercent(0);
     setTimerMinutes(0);
     setTimerSeconds(0);
+    setCRand(0);
+    setCTRand(1);
+    setScore(0);
   };
 
   const rel = () => {
@@ -97,15 +250,15 @@ const Test = () => {
     React.createElement("div", { class: "col-6 text-start", id: "category" }, "Category: ", cat), 
     React.createElement("div", { class: "col-6 text-end", id: "number" }, "Definition ", def, " of 20")), 
 
-    React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, "definition"), 
+    React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defT.substring(0, 32)), 
     React.createElement("p", { class: "text-center mt-4", id: "choose-term" }, "Choose matching term:"), 
-    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDef }, "term one"), 
-    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDef }, "term two"), 
-    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDef }, "term three"), 
-    React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDef }, "term four"), 
+    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOne), 
+    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
+    React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
+    React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour), 
     React.createElement("div", { class: "row mt-4 m-3" }, 
     React.createElement("div", { class: "col-6 text-start", id: "time-duration" }, "Test duration: ", timeDuration()), 
-    React.createElement("div", { class: "col-6 text-end", id: "your-score" }, "Your score: ", count, "/20 (", percent, "%)"))), 
+    React.createElement("div", { class: "col-6 text-end", id: "your-score" }, "Your score: ", score, "/20 (", percent, "%)"))), 
 
 
     React.createElement("div", { class: "col-3" })), 
