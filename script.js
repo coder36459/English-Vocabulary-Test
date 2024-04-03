@@ -1,6 +1,11 @@
 "use strict";
-const terms = [];
-
+document.body.innerHTML = "<div id=\"root\"></div>";
+fetch("https://raw.githubusercontent.com/coder36459/english-vocabulary-test/main/terms.json")
+.then(function(response) {
+	return response.json();
+})
+.then(function(json) {
+	const terms = json
 let dTerms = [];
 const l = "abcdefghijklmnopqrstuvwxyz";
 let a = [],j = 0;
@@ -29,7 +34,6 @@ while (j < terms.length) {
   decrypter(terms[j], 5);
   j += 1;
 }
-
 let randC = [],randR = [],x;
 for (x in dTerms) {
   if (x < 48) {
@@ -39,10 +43,8 @@ for (x in dTerms) {
     randC.push(dTerms[x]);
   }
 }
-
 function randomTerms(arr, qua) {
   let arrayTerms = arr,quantityDef = qua,i = 0,j = 0,k = 0,def = [],term = [],rand = [],r;
-
   while (i < arrayTerms.length) {
     if (i % 2) {
       def.push(arrayTerms[i]);
@@ -52,7 +54,6 @@ function randomTerms(arr, qua) {
     }
     i += 1;
   }
-
   while (j < 10e3) {
     r = Math.floor(Math.random() * def.length);
     if (rand.includes(def[r]) == false) {
@@ -63,7 +64,6 @@ function randomTerms(arr, qua) {
     }
     j += 1;
   }
-
   while (k < rand.length) {
     if (k % 2) {
       let u = 0;
@@ -82,11 +82,9 @@ function randomTerms(arr, qua) {
   }
   return rand;
 }
-
 const rand1 = randomTerms(dTerms, 39);
 const rand2 = randomTerms(randC, 39);
 const rand3 = randomTerms(randR, 39);
-
 const Test = () => {
   const [cat, setCat] = React.useState("Random");
   const [count, setCount] = React.useState(0);
@@ -97,25 +95,18 @@ const Test = () => {
   const [cRand, setCRand] = React.useState(0);
   const [cTRand, setCTRand] = React.useState(1);
   const [score, setScore] = React.useState(0);
-
   const Title = () => {
     return (
       React.createElement("h1", { class: "p-3 mb-3 mt-2 text-uppercase", id: "title" }, "english vocabulary test"));
-
   };
-
   const CatBtn = () => {
     return (
       React.createElement("nav", null, 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize me-2", id: "first-nav", onClick: rel }, "relationships"), 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize me-2", id: "second-nav", onClick: cin }, "cinema"), 
       React.createElement("button", { type: "button", class: "btn btn-secondary text-capitalize", id: "third-nav", onClick: ran }, "random")));
-
-
   };
-
   let defT, termOne, termTwo, termThree, termFour;
-
   const DefTerm = () => {
     if (cat == "Relationships") {
       defT = rand3[cRand];
@@ -131,8 +122,6 @@ const Test = () => {
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
         React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
-
-
     }
     if (cat == "Cinema") {
       defT = rand2[cRand];
@@ -148,8 +137,6 @@ const Test = () => {
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
         React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
-
-
     }
     if (cat == "Random") {
       defT = rand1[cRand];
@@ -165,17 +152,12 @@ const Test = () => {
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
         React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
         React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
-
-
     }
   };
-
   const Footer = () => {
     return (
       React.createElement("div", { class: "m-3 text-center", id: "footer" }, "Made by ", React.createElement("a", { href: "https://www.linkedin.com/in/maciej-browarski", target: "_blank" }, "Maciej Browarski")));
-
   };
-
   const countDefOne = () => {
     if (count < 20) {
       setCount(count + 1);
@@ -193,7 +175,6 @@ const Test = () => {
       }
     }
   };
-
   const countDefTwo = () => {
     if (count < 20) {
       setCount(count + 1);
@@ -211,7 +192,6 @@ const Test = () => {
       }
     }
   };
-
   const countDefThree = () => {
     if (count < 20) {
       setCount(count + 1);
@@ -229,7 +209,6 @@ const Test = () => {
       }
     }
   };
-
   const countDefFour = () => {
     if (count < 20) {
       setCount(count + 1);
@@ -247,7 +226,6 @@ const Test = () => {
       }
     }
   };
-
   const reset = () => {
     setCount(0);
     setDef(1);
@@ -258,28 +236,24 @@ const Test = () => {
     setCTRand(1);
     setScore(0);
   };
-
   const rel = () => {
     setCat("Relationships");
     if (count > 0) {
       reset();
     }
   };
-
   const cin = () => {
     setCat("Cinema");
     if (count > 0) {
       reset();
     }
   };
-
   const ran = () => {
     setCat("Random");
     if (count > 0) {
       reset();
     }
   };
-
   const timeDuration = () => {
     let fS = timerSeconds;
     if (fS < 10) {
@@ -287,7 +261,6 @@ const Test = () => {
     }
     return timerMinutes + ":" + fS;
   };
-
   React.useEffect(() => {
     if (count > 0 && count < 20) {
       const interval = setInterval(() => {
@@ -300,7 +273,6 @@ const Test = () => {
       return () => clearInterval(interval);
     }
   }, [count, timerSeconds, timerMinutes]);
-
   return (
     React.createElement("main", null, 
     React.createElement("div", { class: "row" }, 
@@ -311,18 +283,12 @@ const Test = () => {
     React.createElement("div", { class: "row mt-4 m-3" }, 
     React.createElement("div", { class: "col-6 text-start", id: "category" }, "Category: ", cat), 
     React.createElement("div", { class: "col-6 text-end", id: "number" }, "Definition ", def, " of 20")), 
-
     React.createElement(DefTerm, null), 
     React.createElement("div", { class: "row mt-4 m-3" }, 
     React.createElement("div", { class: "col-6 text-start", id: "time-duration" }, "Test duration: ", timeDuration()), 
     React.createElement("div", { class: "col-6 text-end", id: "your-score" }, "Your score: ", score, "/20 (", percent, "%)"))), 
-
-
     React.createElement("div", { class: "col-3" })), 
-
     React.createElement(Footer, null)));
-
-
 };
-
 ReactDOM.createRoot(document.getElementById("root")).render( React.createElement(Test, null));
+});
