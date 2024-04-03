@@ -5,7 +5,6 @@ let dTerms = [];
 const l = "abcdefghijklmnopqrstuvwxyz";
 let a = [],j = 0;
 a = l.split("");
-
 while (j < terms.length) {
   function decrypter(t, c) {
     let text = t,cipher = c,decrypt = "",d,i;
@@ -31,9 +30,18 @@ while (j < terms.length) {
   j += 1;
 }
 
-let rand = [];
+let randC = [],randR = [],x;
+for (x in dTerms) {
+  if (x < 48) {
+    randR.push(dTerms[x]);
+  }
+  if (x >= 48) {
+    randC.push(dTerms[x]);
+  }
+}
+
 function randomTerms(arr, qua) {
-  let arrayTerms = arr,quantityDef = qua,i = 0,j = 0,k = 0,def = [],term = [],r;
+  let arrayTerms = arr,quantityDef = qua,i = 0,j = 0,k = 0,def = [],term = [],rand = [],r;
 
   while (i < arrayTerms.length) {
     if (i % 2) {
@@ -72,8 +80,12 @@ function randomTerms(arr, qua) {
     }
     k += 1;
   }
+  return rand;
 }
-randomTerms(dTerms, 39);
+
+const rand1 = randomTerms(dTerms, 39);
+const rand2 = randomTerms(randC, 39);
+const rand3 = randomTerms(randR, 39);
 
 const Test = () => {
   const [cat, setCat] = React.useState("Random");
@@ -102,40 +114,57 @@ const Test = () => {
 
   };
 
+  let defT, termOne, termTwo, termThree, termFour;
+
   const DefTerm = () => {
     if (cat == "Relationships") {
+      defT = rand3[cRand];
+      termOne = rand3[cTRand][0];
+      termTwo = rand3[cTRand][1];
+      termThree = rand3[cTRand][2];
+      termFour = rand3[cTRand][3];
       return (
         React.createElement("section", null, 
-        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defR.substring(0, 32)), 
+        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defT.substring(0, 32)), 
         React.createElement("p", { class: "text-center mt-4", id: "choose-term" }, "Choose matching term:"), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOneR), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwoR), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThreeR), 
-        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFourR)));
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOne), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
+        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
 
 
     }
     if (cat == "Cinema") {
+      defT = rand2[cRand];
+      termOne = rand2[cTRand][0];
+      termTwo = rand2[cTRand][1];
+      termThree = rand2[cTRand][2];
+      termFour = rand2[cTRand][3];
       return (
         React.createElement("section", null, 
-        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defC.substring(0, 32)), 
+        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defT.substring(0, 32)), 
         React.createElement("p", { class: "text-center mt-4", id: "choose-term" }, "Choose matching term:"), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOneC), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwoC), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThreeC), 
-        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFourC)));
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOne), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
+        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
 
 
     }
     if (cat == "Random") {
+      defT = rand1[cRand];
+      termOne = rand1[cTRand][0];
+      termTwo = rand1[cTRand][1];
+      termThree = rand1[cTRand][2];
+      termFour = rand1[cTRand][3];
       return (
         React.createElement("section", null, 
-        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defRand.substring(0, 32)), 
+        React.createElement("h2", { class: "text-bg-info p-4 m-3", id: "definition" }, defT.substring(0, 32)), 
         React.createElement("p", { class: "text-center mt-4", id: "choose-term" }, "Choose matching term:"), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOneRand), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwoRand), 
-        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThreeRand), 
-        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFourRand)));
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-one", onClick: countDefOne }, termOne), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-two", onClick: countDefTwo }, termTwo), 
+        React.createElement("button", { type: "button", class: "btn btn-dark me-1", id: "choose-three", onClick: countDefThree }, termThree), 
+        React.createElement("button", { type: "button", class: "btn btn-dark", id: "choose-four", onClick: countDefFour }, termFour)));
 
 
     }
@@ -146,24 +175,6 @@ const Test = () => {
       React.createElement("div", { class: "m-3 text-center", id: "footer" }, "Made by ", React.createElement("a", { href: "https://www.linkedin.com/in/maciej-browarski", target: "_blank" }, "Maciej Browarski")));
 
   };
-
-  const defRand = rand[cRand];
-  const termOneRand = rand[cTRand][0];
-  const termTwoRand = rand[cTRand][1];
-  const termThreeRand = rand[cTRand][2];
-  const termFourRand = rand[cTRand][3];
-
-  const defC = rand[cRand];
-  const termOneC = rand[cTRand][0];
-  const termTwoC = rand[cTRand][1];
-  const termThreeC = rand[cTRand][2];
-  const termFourC = rand[cTRand][3];
-
-  const defR = rand[cRand];
-  const termOneR = rand[cTRand][0];
-  const termTwoR = rand[cTRand][1];
-  const termThreeR = rand[cTRand][2];
-  const termFourR = rand[cTRand][3];
 
   const countDefOne = () => {
     if (count < 20) {
